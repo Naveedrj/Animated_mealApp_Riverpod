@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import '../Models/category_model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meal_app/Providers/category_provider.dart';
+
+
 import '../Views/category_view.dart';
 import 'package:meal_app/View_Models/meal_view_model.dart';
 
-class CategoryGrid extends StatelessWidget {
+class CategoryGrid extends ConsumerWidget {
   CategoryGrid({Key? key}) : super(key: key);
 
-  List<Category> categoriesList = [
-    Category(title: 'Fast Food', id: 1),
-    Category(title: 'Italian', id: 2),
-    Category(title: 'Indian', id: 3),
-    Category(title: 'BBQ', id: 4),
-    Category(title: 'Fried', id: 5),
-    Category(title: 'Sea Food', id: 6),
-  ];
+
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context ,  WidgetRef ref) {
+
+    final list = ref.watch(category_list);
+
     final screenWidth = MediaQuery.of(context).size.width;
     int crossAxisCount = (screenWidth > 600) ? 3 : 2;
 
@@ -30,17 +29,17 @@ class CategoryGrid extends StatelessWidget {
           mainAxisSpacing: 20,
         ),
         children: List.generate(
-          categoriesList.length,
+          list.length,
               (index) => InkWell(
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ItemList(category: categoriesList[index]),
+                  builder: (context) => ItemList(category: list[index]),
                 ),
               );
             },
-            child: CategoryView(title: categoriesList[index].title),
+            child: CategoryView(title: list[index].title),
           ),
         ),
       ),

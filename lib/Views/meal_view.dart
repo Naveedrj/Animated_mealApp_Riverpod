@@ -13,38 +13,52 @@ class MealView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ShowMeal(meal: meal) ));
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ShowMeal(meal: meal)),
+        );
       },
       child: Card(
-        child: Padding(
-          padding: EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildItemImage(),
-              _buildItemDetails(),
-            ],
-          ),
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _buildItemImage(),
+            _buildItemDetails(),
+          ],
         ),
       ),
     );
   }
 
   Widget _buildItemImage() {
-    return SizedBox(
-      height: 200,
-      child: Image.network(
-        meal.imageUrl,
+    return ClipRRect(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(15),
+        topRight: Radius.circular(15),
+      ),
+      child: Image(
+        image: AssetImage(meal.imageUrl),
         fit: BoxFit.cover,
+        height: 220,
       ),
     );
   }
 
   Widget _buildItemDetails() {
     return Container(
-      color: Colors.black45,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: Colors.brown[300],
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(15),
+          bottomRight: Radius.circular(15),
+        ),
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
