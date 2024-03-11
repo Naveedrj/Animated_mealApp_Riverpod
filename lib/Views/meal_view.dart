@@ -41,10 +41,13 @@ class MealView extends StatelessWidget {
         topLeft: Radius.circular(15),
         topRight: Radius.circular(15),
       ),
-      child: Image(
-        image: AssetImage(meal.imageUrl),
-        fit: BoxFit.cover,
-        height: 220,
+      child: Hero(
+        tag: meal.imageUrl,
+        child: Image(
+          image: AssetImage(meal.imageUrl),
+          fit: BoxFit.cover,
+          height: 220,
+        ),
       ),
     );
   }

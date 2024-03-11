@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meal_app/Providers/favorite_provider.dart';
+import 'package:meal_app/Screens/home_screen.dart';
 import 'package:meal_app/Views/meal_view.dart';
 
 class FavoriteScreen extends ConsumerWidget {
@@ -25,12 +27,29 @@ class FavoriteScreen extends ConsumerWidget {
         elevation: 3,
       ),
       body: Center(
-        child: Column(
-          children: [
-            ...fav_list.map((e) {
-              return MealView(meal: e);
-            }).toList()
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              ...fav_list.map((e) {
+                return MealView(meal: e);
+              }),
+
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.brown
+            ),
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen() ));
+            },
+            child: Text('Home'),),
+        )
+            ],
+          ),
         ),
       ),
     );

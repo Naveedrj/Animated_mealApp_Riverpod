@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meal_app/Models/meal_model.dart';
 import 'package:meal_app/Providers/favorite_provider.dart';
+import 'package:meal_app/Screens/favorite_screen.dart';
 
 class ShowMeal extends ConsumerStatefulWidget {
   const ShowMeal({
@@ -40,7 +41,7 @@ class _ShowMealState extends ConsumerState<ShowMeal> {
         child: Column(
           children: [
             Container(
-              child: Image(image: AssetImage(widget.meal.imageUrl)),
+              child: Hero(  tag: widget.meal.imageUrl , child: Image(image: AssetImage(widget.meal.imageUrl))),
               width: double.infinity,
               height: 230,
             ),
@@ -78,6 +79,18 @@ class _ShowMealState extends ConsumerState<ShowMeal> {
                 ),
               ),
             ),
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.brown[800]
+        ),
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => FavoriteScreen() ));
+        },
+        child: Text('Favorites'),
+
+
+            )
           ],
         ),
       ),
